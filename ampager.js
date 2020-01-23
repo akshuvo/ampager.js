@@ -11,9 +11,14 @@
 
         let curSection = 1;
         let numOfSection = $(".typo-section .scroll-section").length;
-        let animTime = 1000;
+        let animTime = 700;
         let scrolling = false;
         var sectionPrefix = ".scroll-section-"
+        var scrollSec = $(".typo-section .scroll-section");
+      	
+      	scrollSec.css({
+            transition : 'all '+animTime+'ms ease-in-out'
+        });
 
         function pagination() {
             scrolling = true;
@@ -24,6 +29,24 @@
 
             setTimeout(function() {
                 scrolling = false;
+             
+              if(curSection == numOfSection){
+                $(document).trigger('ampager_end');
+                $(document).trigger('ampager_last');
+                
+                console.log('ampager_end');
+                console.log('ampager_last');
+              }
+              if(curSection == 1){
+                $(document).trigger('ampager_start');
+                $(document).trigger('ampager_first');
+                
+                console.log('ampager_start');
+                console.log('ampager_first');
+              }
+              
+              $(document).trigger('ampager_slide_'+curSection);              
+               console.log('ampager_slide_'+curSection);
             }, animTime);
         }
 
